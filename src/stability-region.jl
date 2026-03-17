@@ -8,7 +8,7 @@ struct StabilityRegion
     y_lims :: Tuple{Float64, Float64}
 end
 
-function StabilityRegion(center, radius, method)
+function StabilityRegion(center, radius, n_points, method)
     x_start = center[1] - radius
     x_stop  = center[1] + radius
     y_start = center[2] - radius
