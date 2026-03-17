@@ -6,5 +6,14 @@ Currently the the code can handle explicit one step methods, including Explicit 
 
 A method for generation Runge-Kutta based on the Butcher Tableau is implemented.
 
-![Lorenz System solved wirh Runge-Kutta 4](images/lorenz.svg)
+## Example problem
 
+Application of a forth order Runge-Kutta to the Lorenz System:
+
+$$ \frac{dx}{dt} = \delta (y- x) $$
+$$ \frac{dy}{dt} = x (\rho - z) - y $$
+$$ \frac{dz}{dt} = xy - \beta z $$
+
+with parameters $\delta = 10$, $\rho = 28$ and $\beta = \frac{8}{3}$.
+
+![Lorenz System solved wirh Runge-Kutta 4](images/lorenz.svg)
