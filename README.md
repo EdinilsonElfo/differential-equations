@@ -16,7 +16,11 @@ $$ \frac{dz}{dt} = xy - \beta z $$
 
 with parameters $\delta = 10$, $\rho = 28$ and $\beta = \frac{8}{3}$.
 
-![Lorenz System solved wirh Runge-Kutta 4](images/lorenz.svg)
+![Lorenz System solved with Runge-Kutta 4](images/lorenz.svg)
+
+Solution of a double pendulum using a forth order Runge-Kutta:
+
+![Double Pendulum with Runge-Kutta 4](images/double-pendulum.svg)
 
 ## Stability Region
 
