@@ -17,3 +17,10 @@ $$ \frac{dz}{dt} = xy - \beta z $$
 with parameters $\delta = 10$, $\rho = 28$ and $\beta = \frac{8}{3}$.
 
 ![Lorenz System solved wirh Runge-Kutta 4](images/lorenz.svg)
+
+## Stability Region
+
+The program implemented has a feature to test if a method is stable for a givin region.
+The stability region of some methods implemented is show below.
+
+![Stability Region of the methods](images/stability.svg)
