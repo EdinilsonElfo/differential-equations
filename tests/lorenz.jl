@@ -17,8 +17,8 @@ end
 
 coeff = [10.0, 28.0, 8/3]
 u0 = [1.0, 0.0, 0.0]
-t_final = 100.0
-nt = 10000
+t_final = 200.0
+nt = 100000
 dt = t_final / nt
 
 model = Lorenz(coeff, u0, dt)
@@ -30,6 +30,9 @@ p = plot(t, u, title="Lorenz System", label=["x" "y" "z"])
 display(p)
 readline()
 
-p = plot(u[:,1], u[:,2], u[:,3], title="Phase Plane", label="Solution")
+# p = plot(u[:,1], u[:,2], u[:,3], title="Phase Plane", label="Solution")
+p = plot(u[:,1], u[:,2], u[:,3], legend=false, linewidth=0.5, size=(600, 600))
 display(p)
 readline()
+savefig("../images/lorenz.png")
+
