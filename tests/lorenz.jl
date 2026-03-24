@@ -31,8 +31,9 @@ display(p)
 readline()
 
 # p = plot(u[:,1], u[:,2], u[:,3], title="Phase Plane", label="Solution")
-p = plot(u[:,1], u[:,2], u[:,3], legend=false, linewidth=0.5, size=(600, 600))
+p = plot(u[:,1], u[:,2], u[:,3], xlabel="x", ylabel="y", zlabel="z",
+legend=false, linewidth=0.5, size=(600, 600))
 display(p)
 readline()
-savefig("../images/lorenz.png")
+savefig("../images/lorenz.svg")
 

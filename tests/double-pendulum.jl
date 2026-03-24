@@ -37,10 +37,11 @@ function polar_to_cartesian(q::Vector{Float64})
 end
 
 coeff = 1.0
-u0 = [1.5, 2.0, 0.0, 0.0]
-t_final = 250.0
-nt = 10000
+u0 = [2.0, 3.0, 0.0, 0.0]
+t_final = 200.0
+nt = 8000
 dt = t_final / nt
+step_animation = 10
 
 pendulum = DoublePendulum(coeff, u0, dt)
 
@@ -49,11 +50,34 @@ r = polar_to_cartesian.(u)
 u = reduce(hcat, u)'
 r = reduce(hcat, r)'
 
-p1 = plot(r[:,3], r[:,4], title="Double Pedulum", label="Position",
-    xlims=(-2.1, 2.1), ylims=(-2.1, 2.1), size=(600,600))
+# for i in 1:10:nt
+#     line_x = [0.0, r[i,1], r[i,3]]
+#     line_y = [0.0, r[i,2], r[i,4]]
+#     p = plot(line_x, line_y, title="Double Pedulum", legend=false, linewidth=5,
+#         xlims=(-2.1, 2.1), ylims=(-2.1, 2.1), size=(600,600))
+#     plot!(r[1:i, 3], r[1:i, 4], linewidth=1)
+#     display(p)
+# end
+# readline()
+
+function plot_animation!(r)
+    anim = @animate for i in 1:step_animation:nt
+        line_x = [0.0, r[i,1], r[i,3]]
+        line_y = [0.0, r[i,2], r[i,4]]
+        plot(r[1:i, 3], r[1:i, 4], linewidth=1,
+            xlims=(-2.1, 2.1), ylims=(-2.1, 2.1), size=(600,600))
+        plot!(line_x, line_y, title="Double Pedulum", legend=false, linewidth=5)
+    end
+    return anim
+end
+
+println("Generating Animation...")
+anim = plot_animation!(r)
+println("Animation generated.")
 # plot!(r[:,1], r[:,2], title="Double Pedulum", label="Position")
 # p2 = plot(u[:,1], u[:,2], title="Phase Plane", label="Solution")
 # p = plot(p1, p2, layout=2, size=(1000, 600))
-display(p1)
-readline()
+p = gif(anim, "../images/double-pendulum.gif", fps=20)
+display(p)
+# readline()
 
