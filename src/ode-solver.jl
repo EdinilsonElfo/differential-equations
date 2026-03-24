@@ -19,8 +19,7 @@ struct EmbeddedRungeKutta <: OdeSolver
     b1 :: Vector{Float64}
     b2 :: Vector{Float64}
     c :: Vector{Float64}
-    order1 :: Int64
-    order2 :: Int64
+    order :: Int64
 end
 
 include("ode-methods.jl")
@@ -52,6 +51,25 @@ function (rk::RungeKutta)(problem::OdeProblem, time::Float64, value::OdeFunction
         sum_k += rk.b[i]*k[i]
     end
     return value + sum_k * problem.time_step
+end
+
+function (rk::EmbeddedRungeKutta)(problem::OdeProblem, time::Float64, value::OdeFunction)
+    k = Vector{OdeFunction}(undef, rk.order)
+    sum_k1 = zero(value)
+    sum_k2 = zero(value)
+    for i in 1:rk.order
+        sum_ak = zero(value)
+        for j in 1:(i-1)
+            sum_ak += rk.a[i,j]*k[j]
+        end
+        k[i] = problem(time + rk.c[i]*problem.time_step, value + sum_ak*problem.time_step)
+        sum_k1 += rk.b1[i]*k[i]
+        sum_k2 += rk.b2[i]*k[i]
+    end
+    val1 = value + sum_k1 * problem.time_step
+    val2 = value + sum_k2 * problem.time_step
+    error = val1 - val2
+    return val1
 end
 
 function solve(problem::OdeProblem, step::Float64, N::Int, solver::OdeSolver)
